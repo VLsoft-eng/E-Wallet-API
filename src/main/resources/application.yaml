@@ -19,3 +19,4 @@ spring:
 
 jwt:
     signing-key: "my-super-long-secret-key-that-can-secure-your-account-data"
+    expiration-time: 1000000000
