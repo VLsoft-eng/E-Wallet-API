@@ -1,4 +1,4 @@
-package ru.cft.template.core.dto.auth;
+package ru.cft.template.api.model.auth;
 
 import jakarta.validation.constraints.*;
 import org.springframework.format.annotation.DateTimeFormat;

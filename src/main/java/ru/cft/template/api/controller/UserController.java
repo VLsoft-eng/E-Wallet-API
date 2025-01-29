@@ -1,12 +1,11 @@
 package ru.cft.template.api.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.cft.template.core.dto.user.UserDto;
-import ru.cft.template.core.dto.user.UserExtendedDto;
-import ru.cft.template.core.dto.user.UserUpdateRequest;
+import ru.cft.template.api.model.user.UserDto;
+import ru.cft.template.api.model.user.UserExtendedDto;
+import ru.cft.template.api.model.user.UserUpdateRequest;
 import ru.cft.template.core.service.UserService;
 
 import java.util.UUID;

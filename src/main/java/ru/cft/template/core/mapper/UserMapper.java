@@ -1,9 +1,9 @@
 package ru.cft.template.core.mapper;
 
 import org.springframework.stereotype.Component;
-import ru.cft.template.core.dto.user.UserCreateDto;
-import ru.cft.template.core.dto.user.UserDto;
-import ru.cft.template.core.dto.user.UserExtendedDto;
+import ru.cft.template.api.model.user.UserCreateDto;
+import ru.cft.template.api.model.user.UserDto;
+import ru.cft.template.api.model.user.UserExtendedDto;
 import ru.cft.template.core.entity.User;
 
 @Component

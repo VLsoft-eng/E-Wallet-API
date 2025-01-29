@@ -5,10 +5,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.cft.template.core.dto.auth.LoginRequest;
-import ru.cft.template.core.dto.auth.TokenDto;
-import ru.cft.template.core.dto.auth.UserCreateRequest;
-import ru.cft.template.core.dto.user.UserCreateDto;
+import ru.cft.template.api.model.auth.LoginRequest;
+import ru.cft.template.api.model.auth.LoginResponse;
+import ru.cft.template.api.model.auth.UserCreateRequest;
+import ru.cft.template.api.model.user.UserCreateDto;
 import ru.cft.template.core.security.userDetails.CustomUserDetails;
 import ru.cft.template.core.security.userDetails.CustomUserDetailsService;
 
@@ -35,7 +35,7 @@ public class AuthService {
         userService.createUser(userCreateDto);
     }
 
-    public TokenDto signIn(LoginRequest request) {
+    public LoginResponse signIn(LoginRequest request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 request.email(),
                 request.password()
@@ -44,6 +44,6 @@ public class AuthService {
         CustomUserDetails userDetails = customUserDetailsService.loadUserByUsername(request.email());
 
         String jwt = jwtService.generateToken(userDetails);
-        return new TokenDto(jwt);
+        return new LoginResponse(jwt);
     }
 }

@@ -1,4 +1,4 @@
-package ru.cft.template.core.dto.user;
+package ru.cft.template.api.model.user;
 
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
