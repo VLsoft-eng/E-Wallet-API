@@ -134,7 +134,5 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED.value()).body(errorResponse);
     }
-
-
 }
 
