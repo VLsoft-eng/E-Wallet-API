@@ -15,6 +15,7 @@ import ru.cft.template.core.service.AuthService;
 @RestController
 @RequestMapping("/api/v1/auth")
 public class AuthController {
+
     private final AuthService authService;
 
     @Autowired
