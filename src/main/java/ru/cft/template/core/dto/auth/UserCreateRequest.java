@@ -1,12 +1,13 @@
 package ru.cft.template.core.dto.auth;
 
 import jakarta.validation.constraints.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
 public record UserCreateRequest(
         @NotBlank(message = "Фамилия не может быть пустой")
-        @jakarta.validation.constraints.Pattern(regexp = "^[А-ЯЁ][а-яё]+$", message = "Фамилия должна содержать только буквы русского алфавита и начинаться с заглавной буквы")
+        @Pattern(regexp = "^[А-ЯЁ][а-яё]+$", message = "Фамилия должна содержать только буквы русского алфавита и начинаться с заглавной буквы")
         @Size(max = 50, message = "Фамилия не может быть длиной более 50 символов")
         String lastName,
 
@@ -30,6 +31,7 @@ public record UserCreateRequest(
 
         @NotNull(message = "Дата рождения не может быть пустой")
         @Past(message = "Дата рождения должна быть в прошлом")
+        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
         LocalDate birthdate,
 
         @NotBlank(message = "Пароль не может быть пустым")
