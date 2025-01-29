@@ -11,7 +11,7 @@ import ru.cft.template.api.model.user.UserUpdateRequest;
 import ru.cft.template.core.entity.User;
 import ru.cft.template.core.exception.CredentialAlreadyUsedException;
 import ru.cft.template.core.exception.DoesntHaveRightsException;
-import ru.cft.template.core.exception.ExceptionMessages;
+import ru.cft.template.core.exception.ExceptionMessage;
 import ru.cft.template.core.exception.UserNotFoundException;
 import ru.cft.template.core.mapper.UserMapper;
 import ru.cft.template.core.repository.UserRepository;
@@ -28,11 +28,11 @@ public class UserService {
 
     public void createUser(UserCreateDto userCreateDto) {
         if (userRepository.existsByPhone(userCreateDto.phoneNumber())) {
-            throw new CredentialAlreadyUsedException(ExceptionMessages.PHONE_ALREADY_USED_MESSAGE);
+            throw new CredentialAlreadyUsedException(ExceptionMessage.PHONE_ALREADY_USED_MESSAGE);
         }
 
         if (userRepository.existsByEmail(userCreateDto.email())) {
-            throw new CredentialAlreadyUsedException(ExceptionMessages.EMAIL_ALREADY_USED_MESSAGE);
+            throw new CredentialAlreadyUsedException(ExceptionMessage.EMAIL_ALREADY_USED_MESSAGE);
         }
 
         User user = userMapper.toUser(userCreateDto);
@@ -46,7 +46,7 @@ public class UserService {
         User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
 
         if (!userDetails.getId().equals(userId)) {
-            throw new DoesntHaveRightsException(ExceptionMessages.EDIT_OTHER_USER_NOT_ALLOWED_MESSAGE);
+            throw new DoesntHaveRightsException(ExceptionMessage.EDIT_OTHER_USER_NOT_ALLOWED_MESSAGE);
         }
 
         user.setFirstName(userUpdateRequest.firstName() != null ? userUpdateRequest.firstName() : user.getFirstName());
