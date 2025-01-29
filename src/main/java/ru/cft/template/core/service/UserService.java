@@ -1,6 +1,7 @@
 package ru.cft.template.core.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import ru.cft.template.core.security.userDetails.CustomUserDetails;
 
 import java.util.UUID;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class UserService {
@@ -28,15 +30,19 @@ public class UserService {
 
     public UUID createUser(UserCreateDto userCreateDto) {
         if (userRepository.existsByPhone(userCreateDto.phoneNumber())) {
+            log.warn("Registration rejected. Phone number already used");
             throw new CredentialAlreadyUsedException(ExceptionMessage.PHONE_ALREADY_USED_MESSAGE);
         }
 
         if (userRepository.existsByEmail(userCreateDto.email())) {
+            log.warn("Registration rejected. Email already used");
             throw new CredentialAlreadyUsedException(ExceptionMessage.EMAIL_ALREADY_USED_MESSAGE);
         }
 
         User user = userMapper.toUser(userCreateDto);
         userRepository.save(user);
+
+        log.info("User created");
 
         return user.getId();
     }
@@ -48,6 +54,7 @@ public class UserService {
         User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
 
         if (!userDetails.getId().equals(userId)) {
+            log.warn("Updating user with id{} rejected - doesnt have rights", userId);
             throw new DoesntHaveRightsException(ExceptionMessage.EDIT_OTHER_USER_NOT_ALLOWED_MESSAGE);
         }
 
@@ -57,6 +64,7 @@ public class UserService {
         user.setBirthdate(userUpdateRequest.birthdate() != null ? userUpdateRequest.birthdate() : user.getBirthdate());
 
         userRepository.save(user);
+        log.info("User with id{} updated", userId);
     }
 
     public UserDto getUser(UUID userId) {

@@ -20,6 +20,9 @@ spring:
         servlet:
             path: /api/v1
 
+logging:
+    level:
+        root: INFO
 jwt:
     signing-key: "my-super-long-secret-key-that-can-secure-your-account-data"
     expiration-time: 1000000000
