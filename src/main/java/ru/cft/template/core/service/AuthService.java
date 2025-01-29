@@ -6,7 +6,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.cft.template.core.dto.auth.LoginRequest;
-import ru.cft.template.core.dto.auth.TokenResponse;
+import ru.cft.template.core.dto.auth.TokenDto;
 import ru.cft.template.core.dto.auth.UserCreateRequest;
 import ru.cft.template.core.dto.user.UserCreateDto;
 import ru.cft.template.core.security.userDetails.CustomUserDetails;
@@ -21,7 +21,11 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public AuthService(UserService userService, CustomUserDetailsService customUserDetailsService, JwtService jwtService, AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder) {
+    public AuthService(UserService userService,
+                       CustomUserDetailsService customUserDetailsService,
+                       JwtService jwtService,
+                       AuthenticationManager authenticationManager,
+                       PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.customUserDetailsService = customUserDetailsService;
         this.jwtService = jwtService;
@@ -42,7 +46,7 @@ public class AuthService {
         userService.createUser(userCreateDto);
     }
 
-    public TokenResponse signIn(LoginRequest request) {
+    public TokenDto signIn(LoginRequest request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 request.email(),
                 request.password()
@@ -51,6 +55,6 @@ public class AuthService {
         CustomUserDetails userDetails = customUserDetailsService.loadUserByUsername(request.email());
 
         String jwt = jwtService.generateToken(userDetails);
-        return new TokenResponse(jwt);
+        return new TokenDto(jwt);
     }
 }
