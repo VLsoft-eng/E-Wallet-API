@@ -1,0 +1,46 @@
+package ru.cft.template.core.mapper;
+
+import org.springframework.stereotype.Component;
+import ru.cft.template.core.dto.user.UserCreateDto;
+import ru.cft.template.core.dto.user.UserDto;
+import ru.cft.template.core.dto.user.UserExtendedDto;
+import ru.cft.template.core.entity.User;
+
+@Component
+public class UserMapper {
+    public UserDto toUserDto(User user) {
+        return new UserDto(
+                user.getFirstName(),
+                user.getLastName(),
+                user.getMiddleName(),
+                user.getBirthdate(),
+                user.getPhone()
+        );
+    }
+
+    public UserExtendedDto toUserExtendedDto(User user) {
+        return new UserExtendedDto(
+                user.getId(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getMiddleName(),
+                user.getBirthdate(),
+                user.getEmail(),
+                user.getPhone(),
+                user.getCreatedAt(),
+                user.getUpdatedAt()
+        );
+    }
+
+    public User toUser(UserCreateDto userCreateDto) {
+        return User.builder()
+                .firstName(userCreateDto.firstName())
+                .lastName(userCreateDto.lastName())
+                .middleName(userCreateDto.middleName())
+                .phone(userCreateDto.phoneNumber())
+                .email(userCreateDto.email())
+                .birthdate(userCreateDto.birthDate())
+                .hashedPassword(userCreateDto.hashedPassword())
+                .build();
+    }
+}
