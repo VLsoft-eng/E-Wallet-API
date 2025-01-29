@@ -1,4 +1,4 @@
-package ru.cft.template.api.advice;
+package ru.cft.template.api.model.error;
 
 import java.time.LocalDateTime;
 import java.util.Map;
