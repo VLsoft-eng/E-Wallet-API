@@ -9,7 +9,7 @@ import ru.cft.template.api.model.auth.LoginRequest;
 import ru.cft.template.api.model.auth.LoginResponse;
 import ru.cft.template.api.model.auth.RegistrationRequest;
 import ru.cft.template.api.model.auth.RegistrationResponse;
-import ru.cft.template.api.model.user.UserCreateDto;
+import ru.cft.template.core.dto.UserCreateDto;
 import ru.cft.template.core.mapper.RegistrationMapper;
 import ru.cft.template.core.security.userDetails.CustomUserDetails;
 import ru.cft.template.core.security.userDetails.CustomUserDetailsService;

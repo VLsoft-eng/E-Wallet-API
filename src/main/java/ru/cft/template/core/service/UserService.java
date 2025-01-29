@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import ru.cft.template.api.model.user.UserCreateDto;
+import ru.cft.template.core.dto.UserCreateDto;
 import ru.cft.template.api.model.user.UserDto;
 import ru.cft.template.api.model.user.UserExtendedDto;
 import ru.cft.template.api.model.user.UserUpdateRequest;

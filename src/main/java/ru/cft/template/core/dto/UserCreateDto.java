@@ -1,4 +1,4 @@
-package ru.cft.template.api.model.user;
+package ru.cft.template.core.dto;
 
 import java.time.LocalDate;
 

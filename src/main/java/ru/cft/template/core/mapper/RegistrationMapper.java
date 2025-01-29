@@ -2,7 +2,7 @@ package ru.cft.template.core.mapper;
 
 import org.springframework.stereotype.Component;
 import ru.cft.template.api.model.auth.RegistrationRequest;
-import ru.cft.template.api.model.user.UserCreateDto;
+import ru.cft.template.core.dto.UserCreateDto;
 
 @Component
 public class RegistrationMapper {
