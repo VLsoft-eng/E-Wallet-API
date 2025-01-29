@@ -16,6 +16,9 @@ spring:
         enabled: true
         locations:
           - db.migration
+    mvc:
+        servlet:
+            path: /api/v1
 
 jwt:
     signing-key: "my-super-long-secret-key-that-can-secure-your-account-data"

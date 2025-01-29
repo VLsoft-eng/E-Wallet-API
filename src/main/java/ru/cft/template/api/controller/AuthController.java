@@ -13,7 +13,7 @@ import ru.cft.template.core.dto.auth.UserCreateRequest;
 import ru.cft.template.core.service.AuthService;
 
 @RestController
-@RequestMapping("/api/v1/auth")
+@RequestMapping("/auth")
 public class AuthController {
 
     private final AuthService authService;
