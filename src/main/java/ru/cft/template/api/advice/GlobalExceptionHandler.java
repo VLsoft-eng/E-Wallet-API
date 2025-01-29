@@ -9,9 +9,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+import ru.cft.template.core.exception.CredentialAlreadyUsedException;
 import ru.cft.template.core.exception.DoesntHaveRightsException;
-import ru.cft.template.core.exception.EmailAlreadyUsedException;
-import ru.cft.template.core.exception.PhoneAlreadyUsedException;
 import ru.cft.template.core.exception.UserNotFoundException;
 
 import java.time.LocalDateTime;
@@ -79,22 +78,8 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.FORBIDDEN.value()).body(errorResponse);
     }
 
-    @ExceptionHandler(EmailAlreadyUsedException.class)
-    public ResponseEntity<ErrorResponse> handleEmailAlreadyUsedException(EmailAlreadyUsedException ex, WebRequest request) {
-        ErrorResponse errorResponse = new ErrorResponse(
-                LocalDateTime.now(),
-                HttpStatus.FORBIDDEN.value(),
-                "Credentials error",
-                ex.getMessage(),
-                Map.of(),
-                request.getDescription(false)
-        );
-
-        return ResponseEntity.badRequest().body(errorResponse);
-    }
-
-    @ExceptionHandler(PhoneAlreadyUsedException.class)
-    public ResponseEntity<ErrorResponse> handlePhoneAlreadyUsedException(PhoneAlreadyUsedException ex, WebRequest request) {
+    @ExceptionHandler(CredentialAlreadyUsedException.class)
+    public ResponseEntity<ErrorResponse> handlePhoneAlreadyUsedException(CredentialAlreadyUsedException ex, WebRequest request) {
         ErrorResponse errorResponse = new ErrorResponse(
                 LocalDateTime.now(),
                 HttpStatus.BAD_REQUEST.value(),

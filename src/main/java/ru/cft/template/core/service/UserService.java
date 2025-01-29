@@ -9,9 +9,8 @@ import ru.cft.template.core.dto.user.UserDto;
 import ru.cft.template.core.dto.user.UserExtendedDto;
 import ru.cft.template.core.dto.user.UserUpdateRequest;
 import ru.cft.template.core.entity.User;
+import ru.cft.template.core.exception.CredentialAlreadyUsedException;
 import ru.cft.template.core.exception.DoesntHaveRightsException;
-import ru.cft.template.core.exception.EmailAlreadyUsedException;
-import ru.cft.template.core.exception.PhoneAlreadyUsedException;
 import ru.cft.template.core.exception.UserNotFoundException;
 import ru.cft.template.core.mapper.UserMapper;
 import ru.cft.template.core.repository.UserRepository;
@@ -28,11 +27,11 @@ public class UserService {
 
     public void createUser(UserCreateDto userCreateDto) {
         if (userRepository.existsByPhone(userCreateDto.phoneNumber())) {
-            throw new PhoneAlreadyUsedException();
+            throw new CredentialAlreadyUsedException("Номер телефона уже используется.");
         }
 
         if (userRepository.existsByEmail(userCreateDto.email())) {
-            throw new EmailAlreadyUsedException();
+            throw new CredentialAlreadyUsedException("Почта уже используется");
         }
 
         User user = userMapper.toUser(userCreateDto);

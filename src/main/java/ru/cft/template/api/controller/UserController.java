@@ -21,12 +21,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PatchMapping("/{userId}")
-    public ResponseEntity<String> updateUser(@PathVariable UUID userId, @RequestBody UserUpdateRequest userUpdateRequest) {
-        userService.updateUser(userId, userUpdateRequest);
-        return ResponseEntity.ok("Пользователь обновлен");
-    }
-
     @GetMapping("/{userId}")
     public UserDto getUser(@PathVariable UUID userId) {
         return userService.getUser(userId);
@@ -35,5 +29,11 @@ public class UserController {
     @GetMapping("/my-profile")
     public UserExtendedDto getUserProfile() {
         return userService.getUserProfile();
+    }
+
+    @PatchMapping("/{userId}")
+    public ResponseEntity<String> updateUser(@PathVariable UUID userId, @RequestBody UserUpdateRequest userUpdateRequest) {
+        userService.updateUser(userId, userUpdateRequest);
+        return ResponseEntity.ok("Пользователь обновлен");
     }
 }
