@@ -7,10 +7,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.cft.template.api.model.auth.LoginRequest;
 import ru.cft.template.api.model.auth.LoginResponse;
-import ru.cft.template.api.model.auth.UserCreateRequest;
+import ru.cft.template.api.model.auth.RegistrationRequest;
+import ru.cft.template.api.model.auth.RegistrationResponse;
 import ru.cft.template.api.model.user.UserCreateDto;
+import ru.cft.template.core.mapper.RegistrationMapper;
 import ru.cft.template.core.security.userDetails.CustomUserDetails;
 import ru.cft.template.core.security.userDetails.CustomUserDetailsService;
+
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -21,18 +25,15 @@ public class AuthService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
+    private final RegistrationMapper registrationMapper;
 
-    public void signUp(UserCreateRequest userCreateRequest) {
-        String hashedPassword = passwordEncoder.encode(userCreateRequest.password());
-        UserCreateDto userCreateDto = new UserCreateDto(
-                userCreateRequest.lastName(),
-                userCreateRequest.firstName(),
-                userCreateRequest.middleName(), userCreateRequest.phoneNumber(),
-                userCreateRequest.email(),
-                userCreateRequest.birthdate(),
-                hashedPassword);
+    public RegistrationResponse signUp(RegistrationRequest registrationRequest) {
+        String hashedPassword = passwordEncoder.encode(registrationRequest.password());
+        UserCreateDto userCreateDto = registrationMapper.toUserCreateDto(registrationRequest, hashedPassword);
 
-        userService.createUser(userCreateDto);
+        UUID userId = userService.createUser(userCreateDto);
+
+        return new RegistrationResponse(userId);
     }
 
     public LoginResponse signIn(LoginRequest request) {

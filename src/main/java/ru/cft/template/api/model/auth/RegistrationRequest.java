@@ -5,7 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
-public record UserCreateRequest(
+public record RegistrationRequest(
         @NotBlank(message = "Фамилия не может быть пустой")
         @Pattern(regexp = "^[А-ЯЁ][а-яё]+$", message = "Фамилия должна содержать только буквы русского алфавита и начинаться с заглавной буквы")
         @Size(max = 50, message = "Фамилия не может быть длиной более 50 символов")

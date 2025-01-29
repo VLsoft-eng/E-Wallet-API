@@ -26,7 +26,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
-    public void createUser(UserCreateDto userCreateDto) {
+    public UUID createUser(UserCreateDto userCreateDto) {
         if (userRepository.existsByPhone(userCreateDto.phoneNumber())) {
             throw new CredentialAlreadyUsedException(ExceptionMessage.PHONE_ALREADY_USED_MESSAGE);
         }
@@ -37,6 +37,8 @@ public class UserService {
 
         User user = userMapper.toUser(userCreateDto);
         userRepository.save(user);
+
+        return user.getId();
     }
 
     public void updateUser(UUID userId, UserUpdateRequest userUpdateRequest) {

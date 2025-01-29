@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.cft.template.api.model.auth.LoginRequest;
 import ru.cft.template.api.model.auth.LoginResponse;
-import ru.cft.template.api.model.auth.UserCreateRequest;
+import ru.cft.template.api.model.auth.RegistrationRequest;
+import ru.cft.template.api.model.auth.RegistrationResponse;
 import ru.cft.template.core.service.AuthService;
 
 @RequiredArgsConstructor
@@ -20,9 +21,9 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/sign-up")
-    public ResponseEntity<String> singUp(@RequestBody @Valid UserCreateRequest request) {
+    public RegistrationResponse singUp(@RequestBody @Valid RegistrationRequest request) {
         authService.signUp(request);
-        return ResponseEntity.ok("Регистрация прошла успешно.");
+        return authService.signUp(request);
     }
 
     @PostMapping("/sign-in")
