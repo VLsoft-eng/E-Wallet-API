@@ -29,32 +29,37 @@ public class UserService {
     private final UserMapper userMapper;
 
     public UUID createUser(UserCreateDto userCreateDto) {
+
+        log.info("Starting creating user");
+
         if (userRepository.existsByPhone(userCreateDto.phoneNumber())) {
-            log.warn("Registration rejected. Phone number already used");
+            log.error("Registration rejected. Phone number already used");
             throw new CredentialAlreadyUsedException(ExceptionMessage.PHONE_ALREADY_USED_MESSAGE);
         }
 
         if (userRepository.existsByEmail(userCreateDto.email())) {
-            log.warn("Registration rejected. Email already used");
+            log.error("Registration rejected. Email already used");
             throw new CredentialAlreadyUsedException(ExceptionMessage.EMAIL_ALREADY_USED_MESSAGE);
         }
 
         User user = userMapper.toUser(userCreateDto);
         userRepository.save(user);
 
-        log.info("User created");
+        log.info("User with id={} created", user.getId());
 
         return user.getId();
     }
 
     public void updateUser(UUID userId, UserUpdateRequest userUpdateRequest) {
+        log.info("Started updating user with id={}", userId);
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
 
         User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
 
         if (!userDetails.getId().equals(userId)) {
-            log.warn("Updating user with id{} rejected - doesnt have rights", userId);
+            log.error("Updating user with id={} rejected", userId);
             throw new DoesntHaveRightsException(ExceptionMessage.EDIT_OTHER_USER_NOT_ALLOWED_MESSAGE);
         }
 
@@ -64,7 +69,8 @@ public class UserService {
         user.setBirthdate(userUpdateRequest.birthdate() != null ? userUpdateRequest.birthdate() : user.getBirthdate());
 
         userRepository.save(user);
-        log.info("User with id{} updated", userId);
+
+        log.info("User with id={} updated", userId);
     }
 
     public UserDto getUser(UUID userId) {
