@@ -3,23 +3,26 @@ package ru.cft.template.core.mapper;
 import org.springframework.stereotype.Component;
 import ru.cft.template.core.dto.UserCreateDto;
 import ru.cft.template.api.model.user.UserDto;
-import ru.cft.template.api.model.user.UserExtendedDto;
 import ru.cft.template.core.entity.User;
 
 @Component
 public class UserMapper {
-    public UserDto toUserDto(User user) {
+    public UserDto toUserShortDto(User user) {
         return new UserDto(
+                user.getId(),
                 user.getFirstName(),
                 user.getLastName(),
                 user.getMiddleName(),
                 user.getBirthdate(),
-                user.getPhone()
+                null,
+                user.getPhone(),
+                null,
+                null
         );
     }
 
-    public UserExtendedDto toUserExtendedDto(User user) {
-        return new UserExtendedDto(
+    public UserDto toUserDto(User user) {
+        return new UserDto(
                 user.getId(),
                 user.getFirstName(),
                 user.getLastName(),

@@ -7,7 +7,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import ru.cft.template.core.dto.UserCreateDto;
 import ru.cft.template.api.model.user.UserDto;
-import ru.cft.template.api.model.user.UserExtendedDto;
 import ru.cft.template.api.model.user.UserUpdateRequest;
 import ru.cft.template.core.entity.User;
 import ru.cft.template.core.exception.CredentialAlreadyUsedException;
@@ -29,7 +28,6 @@ public class UserService {
     private final UserMapper userMapper;
 
     public UUID createUser(UserCreateDto userCreateDto) {
-
         log.info("Starting creating user");
 
         if (userRepository.existsByPhone(userCreateDto.phoneNumber())) {
@@ -74,16 +72,19 @@ public class UserService {
     }
 
     public UserDto getUser(UUID userId) {
-        User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
-        return userMapper.toUserDto(user);
-    }
+        log.info("Started getting user with id={}", userId);
 
-    public UserExtendedDto getUserProfile() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
 
-        User user = userRepository.findById(userDetails.getId()).orElseThrow(UserNotFoundException::new);
+        User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
 
-        return userMapper.toUserExtendedDto(user);
+        if (userDetails.getId().equals(userId)) {
+            log.info("User with id={} returned", userId);
+            return userMapper.toUserDto(user);
+        }
+
+        log.info("User with id={} returned with short profile", userId);
+        return userMapper.toUserShortDto(user);
     }
 }
