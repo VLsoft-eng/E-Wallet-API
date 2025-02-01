@@ -20,7 +20,9 @@ public final class ErrorResponseUtility {
     private static final String VALIDATION_ERROR_MESSAGE = "There were validation errors in the request";
 
     public static ErrorResponse createValidationErrorResponse(
-            MethodArgumentNotValidException ex, WebRequest request) {
+            MethodArgumentNotValidException ex,
+            WebRequest request
+    ) {
 
         Map<String, String> errors = new HashMap<>();
         ex.getBindingResult().getAllErrors().forEach(error -> {
@@ -39,7 +41,9 @@ public final class ErrorResponseUtility {
     }
 
     public static ErrorResponse createConstraintViolationErrorResponse(
-            Set<ConstraintViolation<?>> violations, WebRequest request) {
+            Set<ConstraintViolation<?>> violations,
+            WebRequest request
+    ) {
 
         Map<String, String> errors = new HashMap<>();
         violations.forEach(violation -> {
@@ -58,14 +62,22 @@ public final class ErrorResponseUtility {
     }
 
     public static ErrorResponse createSimpleErrorResponse(
-            HttpStatus status, String error, String message, WebRequest request) {
+            HttpStatus status,
+            String error,
+            String message,
+            WebRequest request
+    ) {
 
         return createErrorResponse(status, error, message, Map.of(), request);
     }
 
     private static ErrorResponse createErrorResponse(
-            HttpStatus status, String error, String message,
-            Map<String, String> details, WebRequest request) {
+            HttpStatus status,
+            String error,
+            String message,
+            Map<String, String> details,
+            WebRequest request
+    ) {
 
         return new ErrorResponse(
                 LocalDateTime.now(),

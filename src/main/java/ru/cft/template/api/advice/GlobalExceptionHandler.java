@@ -20,7 +20,9 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidationException(
-            MethodArgumentNotValidException ex, WebRequest request) {
+            MethodArgumentNotValidException ex,
+            WebRequest request
+    ) {
 
         ErrorResponse errorResponse = ErrorResponseUtility.createValidationErrorResponse(ex, request);
         return ResponseEntity.badRequest().body(errorResponse);
@@ -28,7 +30,9 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<ErrorResponse> handleConstraintViolationException(
-            ConstraintViolationException ex, WebRequest request) {
+            ConstraintViolationException ex,
+            WebRequest request
+    ) {
 
         ErrorResponse errorResponse = ErrorResponseUtility.createConstraintViolationErrorResponse(
                 ex.getConstraintViolations(), request
@@ -38,7 +42,9 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(DoesntHaveRightsException.class)
     public ResponseEntity<ErrorResponse> handleDoesntHaveRightsException(
-            DoesntHaveRightsException ex, WebRequest request) {
+            DoesntHaveRightsException ex,
+            WebRequest request
+    ) {
 
         ErrorResponse errorResponse = ErrorResponseUtility.createSimpleErrorResponse(
                 HttpStatus.FORBIDDEN,
@@ -51,7 +57,9 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(CredentialAlreadyUsedException.class)
     public ResponseEntity<ErrorResponse> handleCredentialAlreadyUsedException(
-            CredentialAlreadyUsedException ex, WebRequest request) {
+            CredentialAlreadyUsedException ex,
+            WebRequest request
+    ) {
 
         ErrorResponse errorResponse = ErrorResponseUtility.createSimpleErrorResponse(
                 HttpStatus.BAD_REQUEST,
@@ -64,7 +72,9 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleUserNotFoundException(
-            UserNotFoundException ex, WebRequest request) {
+            UserNotFoundException ex,
+            WebRequest request
+    ) {
 
         ErrorResponse errorResponse = ErrorResponseUtility.createSimpleErrorResponse(
                 HttpStatus.NOT_FOUND,
@@ -77,7 +87,9 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<ErrorResponse> handleAuthenticationException(
-            AuthenticationException ex, WebRequest request) {
+            AuthenticationException ex,
+            WebRequest request
+    ) {
 
         ErrorResponse errorResponse = ErrorResponseUtility.createSimpleErrorResponse(
                 HttpStatus.UNAUTHORIZED,
