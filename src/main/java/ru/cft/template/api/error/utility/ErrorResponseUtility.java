@@ -1,6 +1,7 @@
-package ru.cft.template.api.model.error.factory;
+package ru.cft.template.api.error.utility;
 
 import jakarta.validation.ConstraintViolation;
+import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -12,7 +13,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class ErrorResponseFactory {
+@NoArgsConstructor
+public final class ErrorResponseUtility {
 
     private static final String VALIDATION_ERROR_NAME = "Validation error";
     private static final String VALIDATION_ERROR_MESSAGE = "There were validation errors in the request";

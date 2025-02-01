@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import ru.cft.template.api.model.error.ErrorResponse;
-import ru.cft.template.api.model.error.factory.ErrorResponseFactory;
+import ru.cft.template.api.error.utility.ErrorResponseUtility;
 import ru.cft.template.core.exception.CredentialAlreadyUsedException;
 import ru.cft.template.core.exception.DoesntHaveRightsException;
 import ru.cft.template.core.exception.UserNotFoundException;
@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleValidationException(
             MethodArgumentNotValidException ex, WebRequest request) {
 
-        ErrorResponse errorResponse = ErrorResponseFactory.createValidationErrorResponse(ex, request);
+        ErrorResponse errorResponse = ErrorResponseUtility.createValidationErrorResponse(ex, request);
         return ResponseEntity.badRequest().body(errorResponse);
     }
 
@@ -30,7 +30,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleConstraintViolationException(
             ConstraintViolationException ex, WebRequest request) {
 
-        ErrorResponse errorResponse = ErrorResponseFactory.createConstraintViolationErrorResponse(
+        ErrorResponse errorResponse = ErrorResponseUtility.createConstraintViolationErrorResponse(
                 ex.getConstraintViolations(), request
         );
         return ResponseEntity.badRequest().body(errorResponse);
@@ -40,7 +40,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleDoesntHaveRightsException(
             DoesntHaveRightsException ex, WebRequest request) {
 
-        ErrorResponse errorResponse = ErrorResponseFactory.createSimpleErrorResponse(
+        ErrorResponse errorResponse = ErrorResponseUtility.createSimpleErrorResponse(
                 HttpStatus.FORBIDDEN,
                 ErrorName.DOEST_HAVE_RIGHTS,
                 ex.getMessage(),
@@ -53,7 +53,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleCredentialAlreadyUsedException(
             CredentialAlreadyUsedException ex, WebRequest request) {
 
-        ErrorResponse errorResponse = ErrorResponseFactory.createSimpleErrorResponse(
+        ErrorResponse errorResponse = ErrorResponseUtility.createSimpleErrorResponse(
                 HttpStatus.BAD_REQUEST,
                 ErrorName.CREDENTIALS_ERROR,
                 ex.getMessage(),
@@ -66,7 +66,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleUserNotFoundException(
             UserNotFoundException ex, WebRequest request) {
 
-        ErrorResponse errorResponse = ErrorResponseFactory.createSimpleErrorResponse(
+        ErrorResponse errorResponse = ErrorResponseUtility.createSimpleErrorResponse(
                 HttpStatus.NOT_FOUND,
                 ErrorName.NOT_FOUND,
                 ex.getMessage(),
@@ -79,7 +79,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleAuthenticationException(
             AuthenticationException ex, WebRequest request) {
 
-        ErrorResponse errorResponse = ErrorResponseFactory.createSimpleErrorResponse(
+        ErrorResponse errorResponse = ErrorResponseUtility.createSimpleErrorResponse(
                 HttpStatus.UNAUTHORIZED,
                 ErrorName.AUTHENTICATION_ERROR,
                 ex.getMessage(),
