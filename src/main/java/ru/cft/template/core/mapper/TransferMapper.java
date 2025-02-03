@@ -6,7 +6,6 @@ import ru.cft.template.api.model.transfer.TransferListDto;
 import ru.cft.template.core.entity.Transfer;
 
 import java.util.List;
-import java.util.UUID;
 
 @Component
 public class TransferMapper {

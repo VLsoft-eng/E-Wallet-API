@@ -10,4 +10,5 @@ public final class ErrorName {
     public static final String CREDENTIALS_ERROR = "Credentials error";
     public static final String NOT_FOUND = "Not found";
     public static final String AUTHENTICATION_ERROR = "Authentication error";
+    public static final String SELF_TRANSACTION = "Self transaction";
 }
