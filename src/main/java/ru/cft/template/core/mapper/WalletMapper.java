@@ -1,13 +1,13 @@
 package ru.cft.template.core.mapper;
 
 import org.springframework.stereotype.Component;
-import ru.cft.template.api.model.wallet.WalletModel;
+import ru.cft.template.api.model.wallet.WalletDto;
 import ru.cft.template.core.entity.Wallet;
 
 @Component
 public class WalletMapper {
-    public WalletModel toWalletDto(Wallet wallet) {
-        return new WalletModel(
+    public WalletDto toWalletDto(Wallet wallet) {
+        return new WalletDto(
                 wallet.getId(),
                 wallet.getBalance()
         );

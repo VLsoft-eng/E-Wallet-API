@@ -12,4 +12,8 @@ public final class ExceptionMessage {
     public static final String EDIT_OTHER_USER_NOT_ALLOWED_MESSAGE = "Запрещено редактировать чужой аккаунт";
     public static final String WALLET_NOT_FOUND_MESSAGE = " Кошелек с указанным Id не найден";
     public static final String GETTING_OTHER_WALLET_NOT_ALLOWED = "Запрещено получать чужой кошелек";
+    public static final String SELF_TRANSFER_MESSAGE = "Запрещено переводить самому себе";
+    public static final String BALANCE_LESS_THAN_TRANSFER_MESSAGE = "Баланс отправителя меньше чем сумма перевода";
+    public static final String TRANSFER_NOT_FOUND_MESSAGE = "Перевод с указанным Id не найден";
+    public static final String GET_OTHER_TRANSFER_NOT_ALLOWED = "Запрещено запрашивать чужие переводы";
 }
