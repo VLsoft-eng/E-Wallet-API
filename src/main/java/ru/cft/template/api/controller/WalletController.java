@@ -12,15 +12,15 @@ import java.util.UUID;
 @RequestMapping("/wallets")
 public class WalletController {
 
-    private final WalletService walletService;
+    private final WalletService service;
 
     @GetMapping("/{walletId}")
     public WalletDto getWallet(@PathVariable UUID walletId) {
-        return walletService.getWallet(walletId);
+        return service.getWallet(walletId);
     }
 
     @PostMapping("/{walletId}/hesoyam")
     public WalletDto createWallet(@PathVariable UUID walletId) {
-        return walletService.hesoyam(walletId);
+        return service.hesoyam(walletId);
     }
 }

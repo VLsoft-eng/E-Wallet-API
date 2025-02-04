@@ -14,16 +14,16 @@ import java.util.UUID;
 @RequestMapping("/users")
 public class UserController {
 
-    private final UserService userService;
+    private final UserService service;
 
     @GetMapping("/{userId}")
     public UserDto getUser(@PathVariable UUID userId) {
-        return userService.getUser(userId);
+        return service.getUser(userId);
     }
 
     @PatchMapping("/{userId}")
     public ResponseEntity<String> updateUser(@PathVariable UUID userId, @RequestBody UserUpdateRequest userUpdateRequest) {
-        userService.updateUser(userId, userUpdateRequest);
+        service.updateUser(userId, userUpdateRequest);
         return ResponseEntity.ok("Пользователь обновлен");
     }
 }

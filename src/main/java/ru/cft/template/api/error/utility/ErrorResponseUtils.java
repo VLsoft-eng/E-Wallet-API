@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.Set;
 
 @NoArgsConstructor
-public final class ErrorResponseUtility {
+public final class ErrorResponseUtils {
 
     private static final String VALIDATION_ERROR_NAME = "Validation error";
     private static final String VALIDATION_ERROR_MESSAGE = "There were validation errors in the request";

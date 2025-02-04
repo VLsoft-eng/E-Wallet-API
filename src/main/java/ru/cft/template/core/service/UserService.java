@@ -1,90 +1,15 @@
 package ru.cft.template.core.service;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Service;
-import ru.cft.template.core.dto.UserCreateDto;
 import ru.cft.template.api.model.user.UserDto;
 import ru.cft.template.api.model.user.UserUpdateRequest;
-import ru.cft.template.core.entity.User;
-import ru.cft.template.core.exception.CredentialAlreadyUsedException;
-import ru.cft.template.core.exception.DoesntHaveRightsException;
-import ru.cft.template.core.exception.ExceptionMessage;
-import ru.cft.template.core.exception.UserNotFoundException;
-import ru.cft.template.core.mapper.UserMapper;
-import ru.cft.template.core.repository.UserRepository;
-import ru.cft.template.core.security.userDetails.CustomUserDetails;
+import ru.cft.template.core.dto.UserCreateDto;
 
 import java.util.UUID;
 
-@Slf4j
-@RequiredArgsConstructor
-@Service
-public class UserService {
+public interface UserService {
+    public UUID createUser(UserCreateDto userCreateDto);
 
-    private final UserRepository userRepository;
-    private final UserMapper userMapper;
+    public void updateUser(UUID userId, UserUpdateRequest userUpdateRequest);
 
-    public UUID createUser(UserCreateDto userCreateDto) {
-        log.info("Starting creating user");
-
-        if (userRepository.existsByPhone(userCreateDto.phoneNumber())) {
-            log.error("Registration rejected. Phone number already used");
-            throw new CredentialAlreadyUsedException(ExceptionMessage.PHONE_ALREADY_USED_MESSAGE);
-        }
-
-        if (userRepository.existsByEmail(userCreateDto.email())) {
-            log.error("Registration rejected. Email already used");
-            throw new CredentialAlreadyUsedException(ExceptionMessage.EMAIL_ALREADY_USED_MESSAGE);
-        }
-
-        User user = userMapper.toUser(userCreateDto);
-        userRepository.save(user);
-
-        log.info("User with id={} created", user.getId());
-
-        return user.getId();
-    }
-
-    public void updateUser(UUID userId, UserUpdateRequest userUpdateRequest) {
-        log.info("Started updating user with id={}", userId);
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-
-        User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
-
-        if (!userDetails.getId().equals(userId)) {
-            log.error("Updating user with id={} rejected", userId);
-            throw new DoesntHaveRightsException(ExceptionMessage.EDIT_OTHER_USER_NOT_ALLOWED_MESSAGE);
-        }
-
-        user.setFirstName(userUpdateRequest.firstName() != null ? userUpdateRequest.firstName() : user.getFirstName());
-        user.setLastName(userUpdateRequest.lastName() != null ? userUpdateRequest.lastName() : user.getLastName());
-        user.setMiddleName(userUpdateRequest.middleName() != null ? userUpdateRequest.middleName() : user.getMiddleName());
-        user.setBirthdate(userUpdateRequest.birthdate() != null ? userUpdateRequest.birthdate() : user.getBirthdate());
-
-        userRepository.save(user);
-
-        log.info("User with id={} updated", userId);
-    }
-
-    public UserDto getUser(UUID userId) {
-        log.info("Started getting user with id={}", userId);
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-
-        User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
-
-        if (userDetails.getId().equals(userId)) {
-            log.info("User with id={} returned", userId);
-            return userMapper.toUserDto(user);
-        }
-
-        log.info("User with id={} returned with short profile", userId);
-        return userMapper.toUserShortDto(user);
-    }
+    public UserDto getUser(UUID userId);
 }

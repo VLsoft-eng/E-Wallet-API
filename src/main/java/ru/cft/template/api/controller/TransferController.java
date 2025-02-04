@@ -16,20 +16,20 @@ import java.util.UUID;
 @RequestMapping("/transfers")
 public class TransferController {
 
-    private final TransferService transferService;
+    private final TransferService service;
 
     @PostMapping("/create")
     public TransferDto createTransfer(@RequestBody @Valid CreateTransferRequest request) {
-        return transferService.createTransfer(request);
+        return service.createTransfer(request);
     }
 
     @GetMapping("/{transferId}")
     public TransferDto getTransferById(@PathVariable UUID transferId) {
-        return transferService.getTransfer(transferId);
+        return service.getTransfer(transferId);
     }
 
     @GetMapping
     public TransferListDto getTransfersList(GetTransferListRequestParams params) {
-        return transferService.getTransferList(params);
+        return service.getTransferList(params);
     }
 }

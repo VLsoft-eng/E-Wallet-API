@@ -17,16 +17,16 @@ import ru.cft.template.core.service.AuthService;
 @RequestMapping("/auth")
 public class AuthController {
 
-    private final AuthService authService;
+    private final AuthService service;
 
     @PostMapping("/sign-up")
     public RegistrationResponse singUp(@RequestBody @Valid RegistrationRequest request) {
-        authService.signUp(request);
-        return authService.signUp(request);
+        service.signUp(request);
+        return service.signUp(request);
     }
 
     @PostMapping("/sign-in")
     public LoginResponse signIn(@RequestBody @Valid LoginRequest request) {
-        return authService.signIn(request);
+        return service.signIn(request);
     }
 }
