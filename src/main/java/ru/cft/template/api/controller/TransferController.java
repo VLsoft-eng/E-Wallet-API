@@ -28,7 +28,7 @@ public class TransferController {
         return transferService.getTransfer(transferId);
     }
 
-    @GetMapping("/transfers")
+    @GetMapping
     public TransferListDto getTransfersList(GetTransferListRequestParams params) {
         return transferService.getTransferList(params);
     }

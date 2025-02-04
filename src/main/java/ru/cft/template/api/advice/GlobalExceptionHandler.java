@@ -148,7 +148,6 @@ public class GlobalExceptionHandler {
             SelfTransferException ex,
             WebRequest request
     ) {
-
         ErrorResponse errorResponse = ErrorResponseUtility.createSimpleErrorResponse(
                 HttpStatus.BAD_REQUEST,
                 ErrorName.SELF_TRANSACTION,
