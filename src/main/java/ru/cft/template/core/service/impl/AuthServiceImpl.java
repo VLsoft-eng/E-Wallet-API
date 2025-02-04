@@ -15,6 +15,7 @@ import ru.cft.template.core.security.userDetails.CustomUserDetails;
 import ru.cft.template.core.security.userDetails.CustomUserDetailsService;
 import ru.cft.template.core.service.AuthService;
 import ru.cft.template.core.service.JwtService;
+import ru.cft.template.core.service.UserService;
 
 import java.util.UUID;
 
