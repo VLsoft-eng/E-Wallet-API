@@ -8,7 +8,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
-import ru.cft.template.api.error.utility.ErrorResponseUtility;
+import ru.cft.template.api.error.utility.ErrorResponseUtils;
 import ru.cft.template.api.model.error.ErrorResponse;
 import ru.cft.template.core.exception.*;
 
@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
             WebRequest request
     ) {
 
-        ErrorResponse errorResponse = ErrorResponseUtility.createValidationErrorResponse(ex, request);
+        ErrorResponse errorResponse = ErrorResponseUtils.createValidationErrorResponse(ex, request);
         return ResponseEntity.badRequest().body(errorResponse);
     }
 
@@ -32,7 +32,7 @@ public class GlobalExceptionHandler {
             WebRequest request
     ) {
 
-        ErrorResponse errorResponse = ErrorResponseUtility.createConstraintViolationErrorResponse(
+        ErrorResponse errorResponse = ErrorResponseUtils.createConstraintViolationErrorResponse(
                 ex.getConstraintViolations(), request
         );
         return ResponseEntity.badRequest().body(errorResponse);
@@ -44,7 +44,7 @@ public class GlobalExceptionHandler {
             WebRequest request
     ) {
 
-        ErrorResponse errorResponse = ErrorResponseUtility.createSimpleErrorResponse(
+        ErrorResponse errorResponse = ErrorResponseUtils.createSimpleErrorResponse(
                 HttpStatus.FORBIDDEN,
                 ErrorName.DOEST_HAVE_RIGHTS,
                 ex.getMessage(),
@@ -59,7 +59,7 @@ public class GlobalExceptionHandler {
             WebRequest request
     ) {
 
-        ErrorResponse errorResponse = ErrorResponseUtility.createSimpleErrorResponse(
+        ErrorResponse errorResponse = ErrorResponseUtils.createSimpleErrorResponse(
                 HttpStatus.BAD_REQUEST,
                 ErrorName.CREDENTIALS_ERROR,
                 ex.getMessage(),
@@ -74,7 +74,7 @@ public class GlobalExceptionHandler {
             WebRequest request
     ) {
 
-        ErrorResponse errorResponse = ErrorResponseUtility.createSimpleErrorResponse(
+        ErrorResponse errorResponse = ErrorResponseUtils.createSimpleErrorResponse(
                 HttpStatus.NOT_FOUND,
                 ErrorName.NOT_FOUND,
                 ex.getMessage(),
@@ -89,7 +89,7 @@ public class GlobalExceptionHandler {
             WebRequest request
     ) {
 
-        ErrorResponse errorResponse = ErrorResponseUtility.createSimpleErrorResponse(
+        ErrorResponse errorResponse = ErrorResponseUtils.createSimpleErrorResponse(
                 HttpStatus.UNAUTHORIZED,
                 ErrorName.AUTHENTICATION_ERROR,
                 ex.getMessage(),
@@ -104,7 +104,7 @@ public class GlobalExceptionHandler {
             WebRequest request
     ) {
 
-        ErrorResponse errorResponse = ErrorResponseUtility.createSimpleErrorResponse(
+        ErrorResponse errorResponse = ErrorResponseUtils.createSimpleErrorResponse(
                 HttpStatus.NOT_FOUND,
                 ErrorName.NOT_FOUND,
                 ex.getMessage(),
@@ -119,7 +119,7 @@ public class GlobalExceptionHandler {
             WebRequest request
     ) {
 
-        ErrorResponse errorResponse = ErrorResponseUtility.createSimpleErrorResponse(
+        ErrorResponse errorResponse = ErrorResponseUtils.createSimpleErrorResponse(
                 HttpStatus.NOT_FOUND,
                 ErrorName.NOT_FOUND,
                 ex.getMessage(),
@@ -134,7 +134,7 @@ public class GlobalExceptionHandler {
             WebRequest request
     ) {
 
-        ErrorResponse errorResponse = ErrorResponseUtility.createSimpleErrorResponse(
+        ErrorResponse errorResponse = ErrorResponseUtils.createSimpleErrorResponse(
                 HttpStatus.NOT_FOUND,
                 ErrorName.NOT_FOUND,
                 ex.getMessage(),
@@ -148,7 +148,7 @@ public class GlobalExceptionHandler {
             SelfTransferException ex,
             WebRequest request
     ) {
-        ErrorResponse errorResponse = ErrorResponseUtility.createSimpleErrorResponse(
+        ErrorResponse errorResponse = ErrorResponseUtils.createSimpleErrorResponse(
                 HttpStatus.BAD_REQUEST,
                 ErrorName.SELF_TRANSACTION,
                 ex.getMessage(),
